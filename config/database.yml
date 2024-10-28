@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV.fetch("DATABASE_HOST") { 'localhost' } %>
+  port: <%= ENV.fetch("DATABASE_PORT") { 5432 } %>
+  username: <%= ENV.fetch("DATABASE_USER") { "postgres" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "postgres" } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: nutrition_api_development
+
+test:
+  <<: *default
+  database: nutrition_api_test
+
+production:
+  <<: *default
+  database: nutrition_api_production
+  username: nutrition_api
+  password: <%= ENV["NUTRITION_API_DATABASE_PASSWORD"] %>
